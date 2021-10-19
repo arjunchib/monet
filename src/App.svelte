@@ -30,6 +30,10 @@
     hovered = e.target;
   }
 
+  function leave() {
+    if (hovered) delete hovered.dataset.hover;
+  }
+
   let active;
   function click(e) {
     if (active) delete active.dataset.active;
@@ -44,6 +48,7 @@
 
 <div
   id="root"
+  on:mouseleave|stopPropagation={leave}
   on:mousemove|stopPropagation={(e) => move(e)}
   on:click|stopPropagation={(e) => click(e)}
 >
