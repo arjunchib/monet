@@ -4,6 +4,7 @@
   import testHtml from "./assets/test.html?raw";
 
   let root;
+  let showPanel = true;
 
   const observer = new MutationObserver((records) => {
     if (records.every((record) => record.attributeName === "data-hover"))
@@ -19,9 +20,13 @@
       attributes: true,
       childList: true,
     });
+    document.addEventListener("keydown", handleKeydown);
   });
 
-  onDestroy(() => observer.disconnect());
+  onDestroy(() => {
+    observer.disconnect();
+    document.removeEventListener("keydown", handleKeydown);
+  });
 
   let hovered;
   function move(e) {
@@ -40,9 +45,16 @@
     e.target.dataset.active = "";
     active = e.target;
   }
+
+  function handleKeydown(e) {
+    if (e.code === "Space") showPanel = !showPanel;
+  }
 </script>
 
-<nav class="amoeba h-screen w-screen fixed pointer-events-none">
+<nav
+  class="amoeba h-screen w-screen fixed pointer-events-none"
+  class:hidden={!showPanel}
+>
   <Directory {root} />
 </nav>
 
@@ -65,5 +77,9 @@
   :global(*[data-active]) {
     @apply outline-dark-100;
     outline-offset: 0;
+  }
+
+  :global(.hidden) {
+    display: none;
   }
 </style>
