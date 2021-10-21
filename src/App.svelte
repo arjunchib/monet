@@ -2,6 +2,7 @@
   import { onMount, onDestroy } from "svelte";
   import Directory from "./lib/Directory.svelte";
   import testHtml from "./assets/test.html?raw";
+  import Layout from "./lib/Layout.svelte";
 
   let root;
   let showPanel = true;
@@ -56,6 +57,7 @@
   class:hidden={!showPanel}
 >
   <Directory {root} />
+  <Layout node={active} />
 </nav>
 
 <div
