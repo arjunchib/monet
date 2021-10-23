@@ -1,4 +1,6 @@
 <script>
+  import LengthInput from "./inputs/LengthInput.svelte";
+
   export let node;
 
   let styles, height;
@@ -42,16 +44,9 @@
       <div
         class=" w-25 h-8 border-dashed border-1 border-blue-500 bg-blue-200  flex items-center justify-center text-xs flex-row gap-1"
       >
-        <div
-          class="block"
-          contenteditable
-          on:focus={(e) => focus(e)}
-          on:keydown={(e) => keydown(e)}
-          on:blur={(e) => blur(e)}
-        >
-          {node.clientWidth}
-        </div>
-        x {height}
+        <LengthInput {node} style="width" />
+        x
+        <LengthInput {node} style="height" />
       </div>
     </div>
   </div>
