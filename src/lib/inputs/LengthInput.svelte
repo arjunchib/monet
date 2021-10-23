@@ -10,6 +10,12 @@
     }
   }
 
+  const staticClass = "block text-xs";
+
+  $: rootClass = $$props.class
+    ? `${$$props.class} ${staticClass}`
+    : staticClass;
+
   function focus(e) {
     e.target.innerText = styles.getPropertyValue(style);
     setTimeout(() => {
@@ -31,7 +37,7 @@
 </script>
 
 <div
-  class="block"
+  class={rootClass}
   contenteditable
   on:focus={(e) => focus(e)}
   on:keydown={(e) => keydown(e)}
