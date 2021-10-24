@@ -68,6 +68,7 @@
 
   function updateActive(newValue) {
     if (active) delete active.dataset.active;
+    if (hovered) delete hovered.dataset.hover;
     active = newValue;
     active.dataset.active = "";
   }
@@ -99,6 +100,7 @@
 
   :global(*[data-active]) {
     @apply outline-dark-100;
+    @apply bg-amber-100;
     outline-offset: 0;
   }
 
