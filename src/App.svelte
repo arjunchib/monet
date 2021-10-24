@@ -5,6 +5,7 @@
   import Layout from "./lib/Layout.svelte";
 
   let root, active, hovered;
+  let activeChain = [];
   let showPanel = true;
 
   const observer = new MutationObserver((records) => {
@@ -41,13 +42,34 @@
   }
 
   function click(e) {
-    if (active) delete active.dataset.active;
-    e.target.dataset.active = "";
-    active = e.target;
+    activeChain = [];
+    updateActive(e.target);
   }
 
   function handleKeydown(e) {
-    if (e.code === "Space") showPanel = !showPanel;
+    switch (e.code) {
+      case "Space":
+        showPanel = !showPanel;
+        break;
+      case "BracketLeft":
+        const parent = active.parentElement;
+        if (active && parent !== root) {
+          activeChain.push(active);
+          updateActive(parent);
+        }
+        break;
+      case "BracketRight":
+        if (activeChain.length) {
+          updateActive(activeChain.pop());
+        }
+        break;
+    }
+  }
+
+  function updateActive(newValue) {
+    if (active) delete active.dataset.active;
+    active = newValue;
+    active.dataset.active = "";
   }
 </script>
 
