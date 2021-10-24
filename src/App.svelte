@@ -4,13 +4,14 @@
   import testHtml from "./assets/test.html?raw";
   import Layout from "./lib/Layout.svelte";
 
-  let root;
+  let root, active, hovered;
   let showPanel = true;
 
   const observer = new MutationObserver((records) => {
     if (records.every((record) => record.attributeName === "data-hover"))
       return;
     root = root;
+    active = active;
   });
 
   onMount(() => {
@@ -29,7 +30,6 @@
     document.removeEventListener("keydown", handleKeydown);
   });
 
-  let hovered;
   function move(e) {
     if (hovered) delete hovered.dataset.hover;
     e.target.dataset.hover = "";
@@ -40,7 +40,6 @@
     if (hovered) delete hovered.dataset.hover;
   }
 
-  let active;
   function click(e) {
     if (active) delete active.dataset.active;
     e.target.dataset.active = "";

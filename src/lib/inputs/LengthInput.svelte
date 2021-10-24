@@ -17,7 +17,7 @@
     : staticClass;
 
   function focus(e) {
-    e.target.innerText = styles.getPropertyValue(style);
+    e.target.innerText = node.style[style] || styles.getPropertyValue(style);
     setTimeout(() => {
       window.getSelection().selectAllChildren(e.target);
     }, 0);
@@ -43,5 +43,5 @@
   on:keydown={(e) => keydown(e)}
   on:blur={(e) => blur(e)}
 >
-  {styles?.getPropertyValue(style)}
+  {parseInt(styles?.getPropertyValue(style))}
 </div>

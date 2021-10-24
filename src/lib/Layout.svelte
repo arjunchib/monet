@@ -46,7 +46,7 @@
 <style>
   .grid-9 {
     display: grid;
-    grid: repeat(3, auto) / repeat(3, auto);
+    grid: repeat(3, auto) / repeat(3, 1fr);
     place-items: center;
   }
 </style>
