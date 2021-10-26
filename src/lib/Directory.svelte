@@ -79,7 +79,7 @@
 </script>
 
 <div
-  class="bg-gray-100 w-65 h-80 rounded-xl shadow-lg amoeba-item self-center m-4 divide-y justify-self-start pointer-events-auto"
+  class="bg-gray-100 w-65 h-80 rounded-xl shadow-lg m-4 divide-y pointer-events-auto"
 >
   <div class="m-2 grid grid-cols-[1fr,3fr,1fr] justify-items-center">
     <button

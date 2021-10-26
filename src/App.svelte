@@ -3,9 +3,11 @@
   import Directory from "./lib/Directory.svelte";
   import testHtml from "./assets/test.html?raw";
   import Layout from "./lib/Layout.svelte";
+  import Chain from "./lib/Chain.svelte";
 
   let root, active, hovered;
   let activeChain = [];
+  let activeChainPointer = 0;
   let showPanel = true;
 
   const observer = new MutationObserver((records) => {
@@ -42,7 +44,13 @@
   }
 
   function click(e) {
-    activeChain = [];
+    let currEl = e.target;
+    activeChain = [currEl];
+    while (currEl.parentElement !== root) {
+      currEl = currEl.parentElement;
+      activeChain.push(currEl);
+    }
+    activeChainPointer = 0;
     updateActive(e.target);
   }
 
@@ -51,16 +59,17 @@
       case "Space":
         showPanel = !showPanel;
         break;
-      case "BracketLeft":
-        const parent = active.parentElement;
-        if (active && parent !== root) {
-          activeChain.push(active);
-          updateActive(parent);
+      case "BracketLeft": // up the tree
+        if (active && activeChainPointer + 1 < activeChain.length) {
+          activeChainPointer += 1;
+          updateActive(activeChain[activeChainPointer]);
+          console.log(activeChain);
         }
         break;
-      case "BracketRight":
-        if (activeChain.length) {
-          updateActive(activeChain.pop());
+      case "BracketRight": // down the tree
+        if (activeChainPointer - 1 >= 0) {
+          activeChainPointer -= 1;
+          updateActive(activeChain[activeChainPointer]);
         }
         break;
     }
@@ -78,7 +87,10 @@
   class="amoeba h-screen w-screen fixed pointer-events-none"
   class:hidden={!showPanel}
 >
-  <Directory {root} />
+  <div class="amoeba-item self-center justify-self-start">
+    <Directory {root} />
+    <Chain chain={activeChain} pointer={activeChainPointer} />
+  </div>
   <Layout node={active} />
 </nav>
 
