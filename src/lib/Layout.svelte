@@ -1,6 +1,5 @@
 <script>
   import LengthInput from "./inputs/LengthInput.svelte";
-  export let node;
 </script>
 
 <div
@@ -15,31 +14,19 @@
       <div
         class="w-25 h-8 border-dashed border-1 border-blue-500 bg-blue-200  flex items-center justify-center flex-row gap-1 col-start-2 row-start-2 text-xs"
       >
-        <LengthInput {node} style="width" />
+        <LengthInput style="width" />
         x
-        <LengthInput {node} style="height" />
+        <LengthInput style="height" />
       </div>
-      <LengthInput {node} style="padding-top" class="col-start-2 row-start-1" />
-      <LengthInput
-        {node}
-        style="padding-right"
-        class="col-start-3 row-start-2"
-      />
-      <LengthInput
-        {node}
-        style="padding-bottom"
-        class="col-start-2 row-start-3"
-      />
-      <LengthInput
-        {node}
-        style="padding-left"
-        class="col-start-1 row-start-2"
-      />
+      <LengthInput style="padding-top" class="col-start-2 row-start-1" />
+      <LengthInput style="padding-right" class="col-start-3 row-start-2" />
+      <LengthInput style="padding-bottom" class="col-start-2 row-start-3" />
+      <LengthInput style="padding-left" class="col-start-1 row-start-2" />
     </div>
-    <LengthInput {node} style="margin-top" class="col-start-2 row-start-1" />
-    <LengthInput {node} style="margin-right" class="col-start-3 row-start-2" />
-    <LengthInput {node} style="margin-bottom" class="col-start-2 row-start-3" />
-    <LengthInput {node} style="margin-left" class="col-start-1 row-start-2" />
+    <LengthInput style="margin-top" class="col-start-2 row-start-1" />
+    <LengthInput style="margin-right" class="col-start-3 row-start-2" />
+    <LengthInput style="margin-bottom" class="col-start-2 row-start-3" />
+    <LengthInput style="margin-left" class="col-start-1 row-start-2" />
   </div>
 </div>
 

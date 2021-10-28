@@ -1,12 +1,13 @@
 <script>
-  export let node;
+  import { active } from "../stores";
+
   export let style;
 
   let styles;
 
   $: {
-    if (node) {
-      styles = window.getComputedStyle(node);
+    if ($active) {
+      styles = window.getComputedStyle($active);
     }
   }
 
@@ -17,14 +18,14 @@
     : staticClass;
 
   function focus(e) {
-    e.target.innerText = node.style[style] || styles.getPropertyValue(style);
+    e.target.innerText = $active.style[style] || styles.getPropertyValue(style);
     setTimeout(() => {
       window.getSelection().selectAllChildren(e.target);
     }, 0);
   }
 
   function blur(e) {
-    node.style[style] = e.target.textContent;
+    $active.style[style] = e.target.textContent;
     e.target.innerText = parseInt(styles.getPropertyValue(style));
     window.getSelection().removeAllRanges();
   }
@@ -39,7 +40,7 @@
     const newNum = num + dir * mag;
     const newNumStr = newNum % 1 === 0 ? newNum : newNum.toFixed(1);
     e.target.innerText = text.replace(num, newNumStr);
-    node.style[style] = e.target.textContent;
+    $active.style[style] = e.target.textContent;
   }
 
   function keydown(e) {

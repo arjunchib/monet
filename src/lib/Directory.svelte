@@ -1,5 +1,5 @@
 <script>
-  export let root;
+  import { root } from "./stores";
 
   let node;
   let hovered;
@@ -8,7 +8,7 @@
 
   $: {
     if (!node) {
-      node = root;
+      node = $root;
     } else {
       node = node;
     }
@@ -83,7 +83,7 @@
 >
   <div class="m-2 grid grid-cols-[1fr,3fr,1fr] justify-items-center">
     <button
-      disabled={node === root}
+      disabled={node === $root}
       on:click={(e) => (node = node.parentElement)}
       class="disabled:text-gray-300">back</button
     >
