@@ -1,15 +1,11 @@
 <script>
   import { root, active, hover } from "./stores";
 
-  let node;
-  let dragged;
+  let dragged, node;
 
   $: {
-    if (!node) {
-      node = $root;
-    } else {
-      node = node;
-    }
+    const parent = $active?.parentElement;
+    if (parent) node = parent;
   }
   $: children = node ? Array.from(node.children) : [];
 
@@ -77,7 +73,7 @@
   <div class="m-2 grid grid-cols-[1fr,3fr,1fr] justify-items-center">
     <button
       disabled={node === $root}
-      on:click={(e) => (node = node.parentElement)}
+      on:click={(e) => ($active = node)}
       class="disabled:text-gray-300">back</button
     >
     {node?.nodeName.toLowerCase()}
@@ -87,7 +83,7 @@
       <li
         on:click={(e) => click(child)}
         on:dblclick={(e) => {
-          if (child.children.length) node = child;
+          if (child.children.length) $active = child.children[0];
         }}
         on:mouseover={(e) => over(child)}
         on:mouseout={out}
@@ -103,7 +99,7 @@
         draggable="true"
       >
         {child.nodeName.toLowerCase()}
-        <span class="font-mono text-gray-400 font-light">
+        <span class="font-mono font-light">
           {#if child.children.length > 0}
             {child.children.length}
           {:else}
