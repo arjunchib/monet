@@ -23,6 +23,7 @@ function createActive() {
       update((n) => {
         if (n) delete n.dataset.active;
         if (value) value.dataset.active = "";
+        hover.set(null);
         return value;
       });
     },

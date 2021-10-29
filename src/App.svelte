@@ -36,10 +36,26 @@
       case "Space":
         showPanel = !showPanel;
         break;
-      case "BracketLeft": // up the tree
+      case "ArrowUp": {
+        const parent = $active.parentElement;
+        if (parent !== $root) $active = parent;
         break;
-      case "BracketRight": // down the tree
+      }
+      case "ArrowDown": {
+        const children = $active.children;
+        if (children.length) $active = children[0];
         break;
+      }
+      case "ArrowLeft": {
+        const sibling = $active.previousElementSibling;
+        if (sibling) $active = sibling;
+        break;
+      }
+      case "ArrowRight": {
+        const sibling = $active.nextElementSibling;
+        if (sibling) $active = sibling;
+        break;
+      }
     }
   }
 </script>
