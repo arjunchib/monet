@@ -1,9 +1,7 @@
 <script>
-  import { root } from "./stores";
+  import { root, active, hover } from "./stores";
 
   let node;
-  let hovered;
-  let active;
   let dragged;
 
   $: {
@@ -16,20 +14,15 @@
   $: children = node ? Array.from(node.children) : [];
 
   function over(node) {
-    if (hovered) delete hovered.dataset.hover;
-    hovered = node;
-    node.dataset.hover = "";
+    $hover = node;
   }
 
   function out() {
-    delete hovered.dataset.hover;
+    $hover = null;
   }
 
   function click(node) {
-    if (active) delete active.dataset.active;
-    if (hovered) delete hovered.dataset.hover;
-    active = node;
-    node.dataset.active = "";
+    $active = node;
   }
 
   function dragstart(e, node) {
@@ -106,7 +99,7 @@
         on:dragleave={(e) => dragleave(e)}
         on:drop={(e) => drop(e, child)}
         class="px-2 py-1 cursor-pointer hover:bg-gray-200 flex justify-between"
-        class:active={active === child}
+        class:active={$active === child}
         draggable="true"
       >
         {child.nodeName.toLowerCase()}
