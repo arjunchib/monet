@@ -3,13 +3,16 @@
 
   export let style;
 
-  let styles;
+  let value;
+  let showUnits = false;
 
   $: {
     if ($active) {
-      styles = window.getComputedStyle($active);
+      value = window.getComputedStyle($active)?.getPropertyValue(style);
     }
   }
+
+  $: displayValue = showUnits ? value : parseInt(value).toString();
 
   const staticClass = "block text-xs";
 
@@ -18,15 +21,15 @@
     : staticClass;
 
   function focus(e) {
-    e.target.innerText = $active.style[style] || styles.getPropertyValue(style);
+    showUnits = true;
     setTimeout(() => {
       window.getSelection().selectAllChildren(e.target);
     }, 0);
   }
 
   function blur(e) {
+    showUnits = false;
     $active.style[style] = e.target.textContent;
-    e.target.innerText = parseInt(styles.getPropertyValue(style));
     window.getSelection().removeAllRanges();
   }
 
@@ -36,11 +39,10 @@
       mag = e.getModifierState("Control") ? 0.1 : 10;
     }
     const text = e.target.textContent;
-    const num = parseFloat(e.target.textContent);
+    const num = parseFloat(value);
     const newNum = num + dir * mag;
     const newNumStr = newNum % 1 === 0 ? newNum : newNum.toFixed(1);
-    e.target.innerText = text.replace(num, newNumStr);
-    $active.style[style] = e.target.textContent;
+    $active.style[style] = text.replace(num, newNumStr);
   }
 
   function keydown(e) {
@@ -62,8 +64,8 @@
   class={rootClass}
   contenteditable
   on:focus={(e) => focus(e)}
-  on:keydown={(e) => keydown(e)}
+  on:keydown|stopPropagation={(e) => keydown(e)}
   on:blur={(e) => blur(e)}
 >
-  {parseInt(styles?.getPropertyValue(style))}
+  {displayValue || ""}
 </div>
