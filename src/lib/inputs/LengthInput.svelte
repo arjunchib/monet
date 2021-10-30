@@ -3,7 +3,7 @@
 
   export let style;
 
-  let value;
+  let value, displayValue, input;
   let showUnits = false;
 
   $: {
@@ -12,7 +12,18 @@
     }
   }
 
-  $: displayValue = showUnits ? value : parseInt(value).toString();
+  $: {
+    if (showUnits) {
+      displayValue = value;
+    } else {
+      const numValue = parseInt(value);
+      displayValue = Number.isNaN(numValue) ? "-" : numValue.toString();
+    }
+  }
+
+  $: {
+    if (input) input.innerText = displayValue;
+  }
 
   const staticClass = "block text-xs";
 
@@ -61,11 +72,10 @@
 </script>
 
 <div
+  bind:this={input}
   class={rootClass}
   contenteditable
   on:focus={(e) => focus(e)}
   on:keydown|stopPropagation={(e) => keydown(e)}
   on:blur={(e) => blur(e)}
->
-  {displayValue || ""}
-</div>
+/>
