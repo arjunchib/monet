@@ -5,6 +5,7 @@
   import Layout from "./lib/Layout.svelte";
   import Chain from "./lib/Chain.svelte";
   import { root, active, hover } from "./lib/stores.js";
+  import Styles from "./lib/Styles.svelte";
 
   let showPanel = true;
 
@@ -68,7 +69,10 @@
     <Directory />
     <Chain />
   </div>
-  <Layout />
+  <div class="amoeba-item self-center justify-self-end">
+    <Layout />
+    <Styles />
+  </div>
 </nav>
 
 <div

@@ -3,7 +3,7 @@
 </script>
 
 <div
-  class="bg-gray-100 w-65 h-65 rounded-xl shadow-lg amoeba-item self-center m-4 divide-y justify-self-end pointer-events-auto amoeba"
+  class="bg-gray-100 w-65 h-65 rounded-xl shadow-lg  m-4 divide-y pointer-events-auto amoeba"
 >
   <div
     class="border-dashed border-1 border-yellow-500 bg-yellow-100 w-55 h-38 amoeba-item place-self-center grid-9"

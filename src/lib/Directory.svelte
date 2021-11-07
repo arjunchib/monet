@@ -68,9 +68,11 @@
 </script>
 
 <div
-  class="bg-gray-100 w-65 h-80 rounded-xl shadow-lg m-4 divide-y pointer-events-auto"
+  class="bg-gray-100 w-65 h-65 rounded-xl shadow-lg m-4 divide-y pointer-events-auto overflow-y-scroll"
 >
-  <div class="m-2 grid grid-cols-[1fr,3fr,1fr] justify-items-center">
+  <div
+    class="m-2 grid grid-cols-[1fr,3fr,1fr] justify-items-center sticky top-0 bg-gray-100"
+  >
     <button
       disabled={node === $root}
       on:click={(e) => ($active = node)}
